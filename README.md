@@ -1,3 +1,4 @@
 # node-01
 
-An amazing project that will change the world!  no..
+This backend server will serve the "Architecture_01" project.
+URL: https://us-central1-node-01-f88ab.cloudfunctions.net/app
