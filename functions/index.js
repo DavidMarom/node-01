@@ -10,4 +10,9 @@ app.get('/', (req, res) => {
     )
 })
 
+
+const bookRoutes = require('./api/book/book.routes')
+app.use('/api/book', bookRoutes)
+
+
 exports.app = functions.https.onRequest(app);
