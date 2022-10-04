@@ -18,25 +18,19 @@ async function query(filterBy) {
 	else { criteria = '' }
 	const collection = await dbService.getCollection('books');
 	try {
-		if (filterBy != undefined || filterBy != '') { var books = await collection.find(criteria).toArray(); }
-		else { var books = await collection.find().toArray(); }
-		// books.forEach(user => delete user.password);
-		return books;
+		if (filterBy != undefined || filterBy != '') { return await collection.find(criteria).toArray(); }
+		else { return await collection.find().toArray(); }
 	}
-
 	catch (err) {
 		console.log('ERROR: cannot find books')
 		throw err;
 	}
 }
 
-async function query2(queryPage, pageSize) {
+async function query2(page, pageSize) {
 	const collection = await dbService.getCollection('books');
 	try {
-		var books = await collection.find().skip((queryPage - 1) * pageSize).limit(pageSize).toArray();
-		// books.forEach(user => delete user.password);
-
-		return books;
+		return await collection.find().skip((page - 1) * pageSize).limit(pageSize).toArray();
 	}
 	catch (err) {
 		console.log('ERROR: cannot find books')
@@ -44,11 +38,9 @@ async function query2(queryPage, pageSize) {
 	}
 }
 async function count() {
-	console.log('03 in count service');
 	const collection = await dbService.getCollection('books');
 	try {
-		var number = await collection.aggregate([{ $count: "total" }]).toArray();
-		return number;
+		return await collection.aggregate([{ $count: "total" }]).toArray();
 	}
 	catch (err) {
 		console.log('ERROR: cannot count books')
@@ -103,8 +95,6 @@ async function update(book) {
 	}
 }
 
-
-
 async function add(book) {
 	const collection = await dbService.getCollection('books')
 	try {
@@ -115,16 +105,3 @@ async function add(book) {
 		throw err;
 	}
 }
-
-function _buildCriteria(filterBy) {
-	const criteria = {};
-	if (filterBy.txt) {
-		criteria.name = filterBy.txt
-	}
-	if (filterBy.minBalance) {
-		criteria.balance = { $gte: +filterBy.minBalance }
-	}
-	return criteria;
-}
-
-
