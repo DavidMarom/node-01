@@ -37,6 +37,7 @@ async function query2(page, pageSize) {
 		throw err;
 	}
 }
+
 async function count() {
 	const collection = await dbService.getCollection('books');
 	try {
